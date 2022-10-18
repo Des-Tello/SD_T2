@@ -9,12 +9,18 @@ const pg_config = {
 
 const pool = new Pool(pg_config);
 
-const getUsuarios = async () => {
-    return await pool.query('select * from miembros').then((consulta) => {
-        const arr = consulta.rows.map((usuario) => {
+const showTable = async (tabla) => {
+    return await pool.query(`select * from ${tabla}`).then((consulta) => {
+        const arr = consulta.rows.map((row) => {
             try {
-                const {nombre, apellido, rut, correo, patente, registro_premium} = usuario;
-                return {nombre, apellido, rut, correo, patente, registro_premium}
+                if(tabla == 'miembros') {
+                    const {nombre, apellido, rut, correo, patente, registro_premium} = row;
+                    return {nombre, apellido, rut, correo, patente, registro_premium}
+                }
+                else if(tabla == 'ventas') {
+                    const {numero_venta, cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito} = row;
+                    return {numero_venta, cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito}
+                }
             } catch(e) {
                 console.log(e);
             }
@@ -29,4 +35,10 @@ const register_member = async (nombre, apellido, rut, correo, patente, registro_
     pool.query(comando, values);
 }
 
-module.exports = {getUsuarios, register_member};
+const register_sale = async (cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito) => {
+    const comando = 'insert into ventas(cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito) values ($1, $2, $3, $4, $5);';
+    const values = [cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito];
+    pool.query(comando, values);
+}
+
+module.exports = {showTable, register_member, register_sale};
