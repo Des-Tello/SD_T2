@@ -1,27 +1,23 @@
 const { Router } = require('express');
 const router = Router();
 const {validarParametros, validarRut} = require('../controller/validacion')
+const { getUsuarios, register_member } = require('../controller/consultas')
 
 router.post('/register_member', (req, res) => {
     const {nombre, apellido, rut, correo, patente, registroPremium} = req.body;
-    if(validarParametros([nombre, apellido, rut, correo, patente, registroPremium])) {
-        RUT = validarRut(rut);
-        if(RUT != false) {
-            res.status(200).json({
-                msg: 'Gremio registrado con éxito',
-                nombre: nombre,
-                apellido: apellido,
-                rut: RUT,
-                correo: correo,
-                patente: patente,
-                registroPremium: registroPremium
-            });
-        }
-        else {
-            res.status(404).json({
-                msg: 'El rut ingresado no es válido',
-            });
-        }
+    if(validarParametros([nombre, apellido, rut, correo, patente])) {
+        register_member(nombre, apellido, rut, correo,patente, registroPremium);
+        getUsuarios();
+        
+        res.status(200).json({
+            msg: 'Gremio registrado con éxito',
+            nombre: nombre,
+            apellido: apellido,
+            rut: rut,
+            correo: correo,
+            patente: patente,
+            registroPremium: registroPremium
+        });
     }
     else {
         res.status(404).json({
@@ -59,5 +55,12 @@ router.get('/report/:coordenadas', (req, res) => {
     });
 });
 
+router.post('/showAllMembers', async(req, res) => {
+    arr = await getUsuarios(res)
+    res.status(200).json({
+        msg: arr
+    });
+    
+});
 
 module.exports = router;

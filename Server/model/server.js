@@ -19,7 +19,7 @@ class Server {
         this.app.use( cors() );
 
         //Parseo y lectura del body
-        this.app.use( express.json() );
+        this.app.use( express.json() );    
     }
 
     routes() {
