@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: docker.io/bitnami/postgresql:11
+    volumes:
+      - ./Database/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=sopaipilleros_guild
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "5432:5432"

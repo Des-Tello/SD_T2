@@ -1,0 +1,1 @@
+CREATE TABLE Items(id SERIAL, nombre VARCHAR(255), apellido VARCHAR(255), rut VARCHAR(255), correo VARCHAR(255), correo VARCHAR(255), registro_premium BOOLEAN);
