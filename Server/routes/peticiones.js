@@ -1,23 +1,22 @@
 const { Router } = require('express');
 const router = Router();
 const {validarParametros, validarRut} = require('../controller/validacion')
-const { getUsuarios, register_member } = require('../controller/consultas')
+const { showTable, register_member, register_sale } = require('../controller/consultas')
 
 router.post('/register_member', (req, res) => {
     const {nombre, apellido, rut, correo, patente, registroPremium} = req.body;
     if(validarParametros([nombre, apellido, rut, correo, patente])) {
-        register_member(nombre, apellido, rut, correo,patente, registroPremium);
-        getUsuarios();
-        
-        res.status(200).json({
-            msg: 'Gremio registrado con éxito',
-            nombre: nombre,
-            apellido: apellido,
-            rut: rut,
-            correo: correo,
-            patente: patente,
-            registroPremium: registroPremium
-        });
+        register_member(nombre, apellido, rut, correo,patente, registroPremium).then(() => {
+            res.status(200).json({
+                msg: 'Gremio registrado con éxito',
+                nombre: nombre,
+                apellido: apellido,
+                rut: rut,
+                correo: correo,
+                patente: patente,
+                registroPremium: registroPremium
+            });
+        })
     }
     else {
         res.status(404).json({
@@ -29,6 +28,7 @@ router.post('/register_member', (req, res) => {
 router.post('/record_sale', (req, res) => {
     const {cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito} = req.body;
     if(validarParametros([cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito])) {
+        register_sale(cliente, cantidad_sopaipillas, hora, stock_restante, ubicacion_carrito);
         res.status(200).json({
             msg: 'Venta registrada con éxito',
             cliente: cliente,
@@ -55,8 +55,10 @@ router.get('/report/:coordenadas', (req, res) => {
     });
 });
 
-router.post('/showAllMembers', async(req, res) => {
-    arr = await getUsuarios(res)
+router.post('/show/:tabla', async(req, res) => {
+    const tabla = req.params.tabla;
+
+    const arr = await showTable(tabla)
     res.status(200).json({
         msg: arr
     });
