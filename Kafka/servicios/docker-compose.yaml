@@ -71,3 +71,16 @@ services:
       kafkaHost: kafka:9092
     ports:
       - 5002:3000
+  nmiembros:
+    build:
+      context: ./Nmiembros/
+      dockerfile: Dockerfile 
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      PORT: 3000
+      kafkaHost: kafka:9092
+    ports:
+      - 5003:3000  

@@ -22,8 +22,7 @@ const auth = async () => {
         eachMessage: async ({ topic, partition, message }) => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());
-                cola_miembros.push(data) 
-                console.log("agregado", data)               
+                console.log("Valor: ", data)               
             }
         },
       })

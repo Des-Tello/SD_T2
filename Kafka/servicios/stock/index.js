@@ -28,6 +28,7 @@ const auth = async () => {
                         console.log("Consulta: ",consulta)
                     });
                     cola_consultas = [];
+                    i = 0;
                 }
                 i++;
             }
