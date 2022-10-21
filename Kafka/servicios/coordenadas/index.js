@@ -20,7 +20,9 @@ const auth = async () => {
         eachMessage: async ({ topic, partition, message }) => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());
-                console.log("Mensaje recibido en el topico: ",data)
+                // Debo mostrar ambas particiones, la que registro en venta y la de profugo.
+                // 1 Minuto.
+                console.log("Mensaje recibido en el topico coordenadas")
             }
         },
       })

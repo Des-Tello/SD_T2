@@ -1,0 +1,25 @@
+json
+Nuevo miembro
+{
+    "Nombre": "Benjamin",
+    "Apellido": "Tello",
+    "Rut": "12345678-1",
+    "Correo": "benjamin.tello@mail.udp.cl",
+    "Patente": "321",
+    "Premium": 1
+}
+
+Venta
+{
+	"Cliente": "nicolas hidalgo",
+	"Cantidad_de_sopaipillas": "12",
+    "Hora": "13:02",
+    "Stock_restante": "2",
+    "Ubicacion_carrito": "(4,3)",
+    "Patente": "123"
+}
+
+profugo
+{
+    "Coordenadas":"(2,1)"
+}

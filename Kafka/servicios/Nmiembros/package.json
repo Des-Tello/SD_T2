@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "kafkajs": "^1.16.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "prompt-sync": "^4.2.0"
   }
 }
