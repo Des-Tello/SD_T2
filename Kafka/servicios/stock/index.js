@@ -16,12 +16,12 @@ var cola_consultas = [];
 const auth = async () => {
     const consumer = kafka.consumer({ groupId: 'prueba3', fromBeginning: true});
     await consumer.connect();
-    await consumer.subscribe({ topic: 'stock'});
+    await consumer.subscribe({ topic: 'stock',  fromBeginning: true });
 
 
     await consumer.run({
-        autoCommit: false,
-        eachMessage: async ({ topic, partition, message }) => {
+        partitionsConsumedConcurrently: 2,
+        eachMessage: async ({ topic, partition, message, heartbeat, pause }) => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());                
                 console.log("Mensaje recibido en el topico de stock")

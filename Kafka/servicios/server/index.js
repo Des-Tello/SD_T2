@@ -24,25 +24,35 @@ app.post("/server", async (req, res) => {
     // Cualquiera sea mi acción debo enviarla al topico correspondiente y tambien al topico de stock
     if(accion == "registro miembro"){
         // Recibo un json con los datos de un posible miembro y lo envio al topico nuevos_miembros
-        const topicMessages = [
-            {
-                // Registro el posible nuevo miembro
-                topic: 'nuevos_miembros',
-                messages: [{value: JSON.stringify(mensaje)}]
-            },
-            {
-                // Stock debe estar leyendo constantes consultas
-                topic: 'stock',
-                messages: [{value: JSON.stringify(mensaje), partition: 0}],
-            },
+        const topicMessages = //[
+            // {
+            //     // Registro el posible nuevo miembro
+            //     topic: 'nuevos_miembros',
+            //     messages: [{value: JSON.stringify(mensaje)}]
+            // },
             {
                 // Stock debe estar leyendo constantes consultas
                 topic: 'stock',
-                messages: [{value: JSON.stringify(mensaje), partition: 1}],
+                messages: [
+                    {key: 'key1', value: JSON.stringify(mensaje), partition: 0},
+                    {key: 'key2', value: JSON.stringify(mensaje), partition: 1}
+                ]
             }
-        ]
+            // ,
+            // {
+            //     // Stock debe estar leyendo constantes consultas
+            //     topic: 'stock',
+            //     messages: [{value: JSON.stringify(mensaje), partition: 1}],
+            // }
+        //]
         
-        await producer.sendBatch({ topicMessages })
+        await producer.send( {
+            topic: 'stock',
+            messages: [
+                {key: 'key1', value: JSON.stringify(mensaje), partition: 0},
+                {key: 'key2', value: JSON.stringify(mensaje), partition: 1}
+            ]
+        } )
         await producer.disconnect().then(
             res.status(200).json({
                 Mensaje: "Listo",

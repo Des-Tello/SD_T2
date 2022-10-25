@@ -17,6 +17,7 @@ services:
     environment:
       ALLOW_PLAINTEXT_LISTENER: "yes"
       KAFKA_CFG_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_NUM_PARTITIONS: 2
     ports:
       - 9092:9092
   server:
@@ -43,6 +44,7 @@ services:
     environment:
       PORT: 3000
       kafkaHost: kafka:9092
+      KAFKA_NUM_PARTITIONS: 2
     ports:
       - 5000:3000
   coordenadas:
@@ -56,6 +58,7 @@ services:
     environment:
       PORT: 3000
       kafkaHost: kafka:9092
+      KAFKA_NUM_PARTITIONS: 2
     ports:
       - 5001:3000
   stock:
@@ -70,6 +73,7 @@ services:
     environment:
       PORT: 3000
       kafkaHost: kafka:9092
+      KAFKA_NUM_PARTITIONS: 2
     ports:
       - 5002:3000
   nmiembros:
@@ -83,5 +87,6 @@ services:
     environment:
       PORT: 3000
       kafkaHost: kafka:9092
+      KAFKA_NUM_PARTITIONS: 2
     ports:
       - 5003:3000  
