@@ -33,7 +33,12 @@ app.post("/server", async (req, res) => {
             {
                 // Stock debe estar leyendo constantes consultas
                 topic: 'stock',
-                messages: [{value: JSON.stringify(mensaje)}]
+                messages: [{value: JSON.stringify(mensaje), partition: 0}],
+            },
+            {
+                // Stock debe estar leyendo constantes consultas
+                topic: 'stock',
+                messages: [{value: JSON.stringify(mensaje), partition: 1}],
             }
         ]
         

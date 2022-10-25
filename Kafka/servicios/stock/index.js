@@ -14,23 +14,27 @@ const kafka = new Kafka({
 var i = 1;
 var cola_consultas = [];
 const auth = async () => {
-    const consumer = kafka.consumer({ groupId: 'prueba3', fromBeginning: true });
+    const consumer = kafka.consumer({ groupId: 'prueba3', fromBeginning: true});
     await consumer.connect();
-    await consumer.subscribe({ topic: 'stock' });
+    await consumer.subscribe({ topic: 'stock'});
+
+
     await consumer.run({
+        autoCommit: false,
         eachMessage: async ({ topic, partition, message }) => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());                
                 console.log("Mensaje recibido en el topico de stock")
-                cola_consultas.push(data)
-                if(i == 5){
-                    cola_consultas.forEach(function(consulta) {
-                        console.log("Consulta: ",consulta)
-                    });
-                    cola_consultas = [];
-                    i = 0;
-                }
-                i++;
+                console.log(partition)
+                // cola_consultas.push(data)
+                // if(i == 5){
+                //     cola_consultas.forEach(function(consulta) {
+                //         console.log("Consulta: ",consulta)
+                //     });
+                //     cola_consultas = [];
+                //     i = 0;
+                // }
+                // i++;
             }
         },
       })

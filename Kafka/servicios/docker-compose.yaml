@@ -66,6 +66,7 @@ services:
     depends_on:
       - zookeeper
       - kafka
+      - ventas
     environment:
       PORT: 3000
       kafkaHost: kafka:9092
