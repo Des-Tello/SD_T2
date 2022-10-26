@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const { Kafka } = require('kafkajs')
+const readline = require("readline");
+
 
 const port = process.env.PORT;
 const app = express();
@@ -24,35 +26,27 @@ app.post("/server", async (req, res) => {
     // Cualquiera sea mi acción debo enviarla al topico correspondiente y tambien al topico de stock
     if(accion == "registro miembro"){
         // Recibo un json con los datos de un posible miembro y lo envio al topico nuevos_miembros
-        const topicMessages = //[
-            // {
-            //     // Registro el posible nuevo miembro
-            //     topic: 'nuevos_miembros',
-            //     messages: [{value: JSON.stringify(mensaje)}]
-            // },
+        
+        const topicMessages = [
             {
                 // Stock debe estar leyendo constantes consultas
                 topic: 'stock',
                 messages: [
-                    {key: 'key1', value: JSON.stringify(mensaje), partition: 0},
-                    {key: 'key2', value: JSON.stringify(mensaje), partition: 1}
+                    {key: 'key1', value: JSON.stringify(mensaje)}
                 ]
+            },
+            {
+                topic: 'nuevos_miembros',
+                messages: [
+                    {key: 'key1', value: JSON.stringify(mensaje), partition: mensaje.Premium}
+                ]  
             }
-            // ,
-            // {
-            //     // Stock debe estar leyendo constantes consultas
-            //     topic: 'stock',
-            //     messages: [{value: JSON.stringify(mensaje), partition: 1}],
-            // }
-        //]
+        ]
         
-        await producer.send( {
-            topic: 'stock',
-            messages: [
-                {key: 'key1', value: JSON.stringify(mensaje), partition: 0},
-                {key: 'key2', value: JSON.stringify(mensaje), partition: 1}
-            ]
+        await producer.sendBatch( {
+            topicMessages
         } )
+       
         await producer.disconnect().then(
             res.status(200).json({
                 Mensaje: "Listo",
@@ -73,7 +67,9 @@ app.post("/server", async (req, res) => {
             },
             {
                 topic: 'coordenadas',
-                messages: [{value: JSON.stringify(mensaje.Ubicacion_carrito)}]
+                messages: [{key: 'coordenadas', value: JSON.stringify(mensaje.Ubicacion_carrito)},
+                           {key: 'patente', value: JSON.stringify(mensaje.Patente)}
+                ]
             }
         ]
         // Recibo un json con los datos de una venta y lo envio al tipico ventas
@@ -88,7 +84,7 @@ app.post("/server", async (req, res) => {
         const topicMessages = [
             {
                 topic: 'coordenadas',
-                messages: [{value: JSON.stringify(mensaje)}]
+                messages: [{key: 'key1', value: JSON.stringify(mensaje), partition: 1}]
             },
             {
                 // Stock debe estar leyendo constantes consultas
@@ -104,51 +100,6 @@ app.post("/server", async (req, res) => {
             })
         )
     }
-
-
-    // if(topico == "ventas"){
-    //     venta = req.body
-    //     console.log(venta)
-    //     await producer.send({
-    //         topic: 'ventas',
-    //         messages: [{value: JSON.stringify(venta)}]
-    //     })
-    //     await producer.disconnect().then(
-    //         res.status(200).json({
-    //             Mensaje: "Listo",
-    //         })
-    //     )
-    // }else if (topico == "coordenadas"){
-    //     await producer.send({
-    //         topic: 'coordenadas',
-    //         messages: [{value: JSON.stringify(mensaje)}]
-    //     })
-    //     await producer.disconnect().then(
-    //         res.status(200).json({
-    //             Mensaje: "Listo",
-    //         })
-    //     )
-    // }else if(topico == "stock"){
-    //     await producer.send({
-    //         topic: 'stock',
-    //         messages: [{value: JSON.stringify(mensaje)}]
-    //     })
-    //     await producer.disconnect().then(
-    //         res.status(200).json({
-    //             Mensaje: "Listo",
-    //         })
-    //     )
-    // }else if(topico == "nuevos miembros"){
-    //     await producer.send({
-    //         topic: 'nuevos_miembros',
-    //         messages: [{value: JSON.stringify(mensaje)}]
-    //     })
-    //     await producer.disconnect().then(
-    //         res.status(200).json({
-    //             Mensaje: "Listo",
-    //         })
-    //     )
-    // }
     
 });
 

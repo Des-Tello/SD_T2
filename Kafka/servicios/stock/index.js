@@ -25,7 +25,7 @@ const auth = async () => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());                
                 console.log("Mensaje recibido en el topico de stock")
-                console.log(partition)
+                // console.log(partition)
                 // cola_consultas.push(data)
                 // if(i == 5){
                 //     cola_consultas.forEach(function(consulta) {
