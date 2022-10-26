@@ -20,6 +20,8 @@ const rl = readline.createInterface({
 
 var cola_miembrosP = [];
 var cola_miembrosNP = [];
+var __FOUNDP = [];
+var __FOUNDNP = [];
 
 const auth = async () => {
     const consumer = kafka.consumer({ groupId: 'prueba4', fromBeginning: true });
@@ -42,24 +44,54 @@ const auth = async () => {
       })
 }
 
-
+let pre = true
 app.post("/miembros", async (req, res) => {
-    mensaje = req.body
-    mensaje.forEach(function(miembros) {
-        console.log("Posible miembro:",miembros.patente)
-    });
+    let p = cola_miembrosP.length 
+    let a = p
+    validacion = req.body
+    for(let i in validacion){
+        console.log(validacion[i])
+        console.log("Posible miembro:",validacion[i].patente)
+        console.log("¿aceptado? ",validacion[i].aceptado)
 
-    cola_miembrosP.forEach(function(miembros) {
-        console.log("Posible miembro:",miembros)
+        if(validacion[i].aceptado == 1){
+            if(a>0){
+                __FOUNDP.push(cola_miembrosP.find((post)=>{
+                    if(post.Patente == validacion[i].patente ){
+                        return true;
+                    }
+                    console.log(a)
+                    
+                }))
+                a--; 
+            }else {
+                __FOUNDNP.push(cola_miembrosNP.find((post)=>{
+                    console.log(post.Patente, validacion[i].patente)
+                    if(post.Patente == validacion[i].patente){
+                        return true;
+                    }
+                    console.log(a)
+                }))
+            }
+        }   
+    };
+
+    // cola_miembrosP.forEach(function(miembros) {
+    //     console.log("Posible miembro:",miembros)
         
-    });
-    cola_miembrosNP.forEach(function(miembro) {
-        console.log("Posible miembro:",miembro)
+    // });
+    // cola_miembrosNP.forEach(function(miembro) {
+    //     console.log("Posible miembro:",miembro)
         
-    });
+    // });
+    console.log("a", __FOUNDP);
+    console.log("b", __FOUNDNP);
+
     res.status(200).json({Mensaje: "Hecho"});
-    cola_miembrosP = [];
-    cola_miembrosNP = [];
+    // cola_miembrosP = [];
+    // cola_miembrosNP = [];
+    
+    
 });
 
 app.listen(port, () => {

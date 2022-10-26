@@ -23,3 +23,5 @@ profugo
 {
     "Coordenadas":"(2,1)"
 }
+
+[{"patente": 123, "aceptado":1}, {"patente":321,"aceptado":0}]
