@@ -42,12 +42,14 @@ const auth = async () => {
             }
         },
       })
+    //   res.status(200).json({Lista_postulantes_premium: cola_miembrosP},{Lista_postulantes_no_premium: cola_miembrosNP});
 }
 
 let pre = true
 app.post("/miembros", async (req, res) => {
     let p = cola_miembrosP.length 
-    let a = p
+    //   res.status(200).json({Lista_postulantes_premium: cola_miembrosP},{Lista_postulantes_no_premium: cola_miembrosNP});
+
     validacion = req.body
     for(let i in validacion){
         console.log(validacion[i])
@@ -55,39 +57,30 @@ app.post("/miembros", async (req, res) => {
         console.log("¿aceptado? ",validacion[i].aceptado)
 
         if(validacion[i].aceptado == 1){
-            if(a>0){
-                __FOUNDP.push(cola_miembrosP.find((post)=>{
+                miembrop = cola_miembrosP.find((post)=>{
                     if(post.Patente == validacion[i].patente ){
                         return true;
                     }
-                    console.log(a)
-                    
-                }))
-                a--; 
-            }else {
-                __FOUNDNP.push(cola_miembrosNP.find((post)=>{
+                })
+                if(miembrop)
+                __FOUNDP.push(miembrop)
+            
+                miembronp = cola_miembrosNP.find((post)=>{
                     console.log(post.Patente, validacion[i].patente)
                     if(post.Patente == validacion[i].patente){
                         return true;
                     }
-                    console.log(a)
-                }))
-            }
+                })
+                if(miembronp)
+                __FOUNDNP.push(miembronp)
         }   
     };
 
-    // cola_miembrosP.forEach(function(miembros) {
-    //     console.log("Posible miembro:",miembros)
-        
-    // });
-    // cola_miembrosNP.forEach(function(miembro) {
-    //     console.log("Posible miembro:",miembro)
-        
-    // });
-    console.log("a", __FOUNDP);
-    console.log("b", __FOUNDNP);
-
-    res.status(200).json({Mensaje: "Hecho"});
+    console.log("Miembros aceptados no premium:", __FOUNDP);
+    console.log("Miembros aceptados no premium:", __FOUNDNP);
+    __FOUNDP = [];
+    __FOUNDNP = [];
+    res.status(200).json({lista: "Hecho"});
     // cola_miembrosP = [];
     // cola_miembrosNP = [];
     

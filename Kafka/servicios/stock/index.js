@@ -11,7 +11,7 @@ app.use(express.json());
 const kafka = new Kafka({
     brokers: [process.env.kafkaHost]
 });
-var i = 1;
+var i = 0;
 var cola_consultas = [];
 const auth = async () => {
     const consumer = kafka.consumer({ groupId: 'prueba3', fromBeginning: true});
@@ -25,24 +25,27 @@ const auth = async () => {
             if (message.value){
                 var data = JSON.parse(message.value.toString());                
                 console.log("Mensaje recibido en el topico de stock")
-                // console.log(partition)
-                // cola_consultas.push(data)
-                // if(i == 5){
-                //     cola_consultas.forEach(function(consulta) {
-                //         console.log("Consulta: ",consulta)
-                //     });
-                //     cola_consultas = [];
-                //     i = 0;
-                // }
-                // i++;
+                
+                if(parseInt(data.Stock_restante) <= 20){
+                    cola_consultas.push(data)
+                    i++;
+                }
+
+                if(i == 5){
+                        console.log("PRECAUCION")
+                        console.log("Entre las ultimas ventas, hay 5 que tienen un stock preocupante")
+                        cola_consultas.forEach(function(consulta) {
+                            console.log("Consulta: ",consulta)
+                        });
+                        cola_consultas = [];
+                        i = 0;
+                    }
+                    
+                
             }
         },
       })
 }
-
-app.get("/blocked", async (req, res) => {
-    res.status(200).json({"users-blocked": black_list});
-});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

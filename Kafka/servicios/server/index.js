@@ -28,13 +28,13 @@ app.post("/server", async (req, res) => {
         // Recibo un json con los datos de un posible miembro y lo envio al topico nuevos_miembros
         
         const topicMessages = [
-            {
-                // Stock debe estar leyendo constantes consultas
-                topic: 'stock',
-                messages: [
-                    {key: 'key1', value: JSON.stringify(mensaje)}
-                ]
-            },
+            // {
+            //     // Stock debe estar leyendo constantes consultas
+            //     topic: 'stock',
+            //     messages: [
+            //         {key: 'key1', value: JSON.stringify(mensaje)}
+            //     ]
+            // },
             {
                 topic: 'nuevos_miembros',
                 messages: [
@@ -85,12 +85,12 @@ app.post("/server", async (req, res) => {
             {
                 topic: 'coordenadas',
                 messages: [{key: 'key1', value: JSON.stringify(mensaje), partition: 1}]
-            },
-            {
-                // Stock debe estar leyendo constantes consultas
-                topic: 'stock',
-                messages: [{value: JSON.stringify(mensaje)}]
-            } 
+            }
+            // {
+            //     // Stock debe estar leyendo constantes consultas
+            //     topic: 'stock',
+            //     messages: [{value: JSON.stringify(mensaje)}]
+            // } 
         ]
         // Recibe y envia coordenadas al topico de las coordenadas en otra particion, aun no se como hacer eso asi que lo envio ahi nomas
         await producer.sendBatch({ topicMessages })

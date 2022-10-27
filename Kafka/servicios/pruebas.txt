@@ -24,4 +24,24 @@ profugo
     "Coordenadas":"(2,1)"
 }
 
-[{"patente": 123, "aceptado":1}, {"patente":321,"aceptado":0}]
+validacion
+[{
+	"patente": 321,
+	"aceptado": "1"
+},
+{
+	"patente": 123,
+	"aceptado": "0"
+},
+{
+	"patente": 2,
+	"aceptado": "0"
+},
+{
+	"patente": 1,
+	"aceptado": "0"
+},
+{
+	"patente": 3,
+	"aceptado": "1"
+}]
