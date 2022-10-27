@@ -79,26 +79,32 @@ app.get("/prueba", async (req, res) => {
         if(vendedor.includes(sopaipillas[i].Patente)){
             if(ventacadacliente[sopaipillas[i].Patente]){
                 if(ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]){
-                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] += sopaipillas[i].Sopaipillas;
+                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]["compras"]++;
+                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]["cantidad"] += sopaipillas[i].Sopaipillas;
                 }else{
-                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = sopaipillas[i].Sopaipillas;
+                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad": sopaipillas[i].Sopaipillas};
                 }
             }else{
                 ventacadacliente[sopaipillas[i].Patente] = {};
-                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = sopaipillas[i].Sopaipillas;
-                // i--;
+                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad":sopaipillas[i].Sopaipillas};
+                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]
             }
-
+    
         }
-        
-        
+    }
+    for(let i in ventacadacliente){
+        console.log('Carrito:', i)
+        for(let j in ventacadacliente[i]){
+            console.log('Promedio cliente ',j ,' : ', ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras)
+            // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
+        }
     }
     
     console.log('ventas totales para cada carrito: ',ventaindividual)
     console.log('ventas totales', totalventas)
     console.log('vendedores totales', vendedor.length)
     console.log('clientes totales', clientes.length)
-    console.log('venta cada cliente',ventacadacliente)
+    // console.log('venta cada cliente',ventacadacliente)
     res.status(200).json({"ok": 'ok'});
     
 });
