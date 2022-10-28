@@ -62,7 +62,7 @@ app.get("/ventas-diarias", async (req, res) => {
     const ventaindividual = {};
     const ventacadacliente = {};
     
-    console.log("ventas diarias")
+    console.log("VENTAS DIARIAS")
     var totalventas = file.ventas.length
     for(let i in file.ventas){
         
@@ -80,46 +80,38 @@ app.get("/ventas-diarias", async (req, res) => {
             if(ventacadacliente[sopaipillas[i].Patente]){
                 if(ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]){
                     ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]["compras"]++;
-                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]["cantidad"] += sopaipillas[i].Sopaipillas;
+                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]["cantidad"] += parseInt(sopaipillas[i].Sopaipillas);
                 }else{
-                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad": sopaipillas[i].Sopaipillas};
+                    ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad": parseInt(sopaipillas[i].Sopaipillas)};
                 }
             }else{
                 ventacadacliente[sopaipillas[i].Patente] = {};
-                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad":sopaipillas[i].Sopaipillas};
+                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad":parseInt(sopaipillas[i].Sopaipillas)};
                 // ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]
             }
     
         }
     }
-    for(let i in ventacadacliente){
-        console.log('Carrito:', i)
-        for(let j in ventacadacliente[i]){
-            console.log('Promedio cliente ',j ,' : ', ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras)
-            // CANT SOPAIPAS / NUM COMPRAS
-            // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
+    vendedor.forEach(function(carrito) {
+        console.log('Carrito:', carrito)
+        for(let i in ventacadacliente[carrito]){
+            console.log('Promedio cliente',i ,' : ', ventacadacliente[carrito][i].cantidad/ventacadacliente[carrito][i].compras)
         }
-    }
+        console.log('------------------------------------')
+    })
     
-    console.log('Ventas totales para cada carrito: ',ventaindividual)
+    console.log('Ventas totales para cada carrito: ',ventaindividual,'\n')
 
-    for(let i in ventacadacliente){
-        console.log('Carrito:', i)
-        for(let j in ventacadacliente[i]){
-            console.log('Promedio cliente ',j ,' : ', ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras)
-            // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
-        }
-    }
-    let i = 0;
-    for(let i in ventacadacliente){
-        console.log('Carrito:', i)
-        console.log('Tiene ',ventacadacliente[i].length,' clientes')
-    }
     
+    for(let i in ventacadacliente){
+        console.log('Carrito:', i)
+        console.log('Tiene ',Object.keys(ventacadacliente[i]).length ,' cliente/s','\n')
+    }
+
     console.log('Ventas totales', totalventas)
     console.log('Vendedores totales', vendedor.length)
     console.log('Clientes totales', clientes.length)
-    // console.log('venta cada cliente',ventacadacliente)
+
     res.status(200).json({"ok": 'ok'});
     
 });

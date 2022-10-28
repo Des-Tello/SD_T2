@@ -1,36 +1,36 @@
 Ventas
 {
 	"Cliente": "cliente1",
-	"Cantidad_de_sopaipillas": "21",
-    "Stock_restante": "22",
+	"Cantidad_de_sopaipillas": 21,
+    "Stock_restante": 22,
     "Ubicacion_carrito": "(4,3)",
     "Patente": "123"
 }
 {
 	"Cliente": "cliente1",
-	"Cantidad_de_sopaipillas": "6",
-    "Stock_restante": "12",
+	"Cantidad_de_sopaipillas": 6,
+    "Stock_restante": 12,
     "Ubicacion_carrito": "(4,3)",
     "Patente": "123"
 }
 {
 	"Cliente": "cliente1",
-	"Cantidad_de_sopaipillas": "2",
-    "Stock_restante": "10",
+	"Cantidad_de_sopaipillas": 2,
+    "Stock_restante": 10,
     "Ubicacion_carrito": "(4,3)",
     "Patente": "123"
 }
 {
 	"Cliente": "cliente1",
-	"Cantidad_de_sopaipillas": "1",
-    "Stock_restante": "9",
+	"Cantidad_de_sopaipillas": 1,
+    "Stock_restante": 9,
     "Ubicacion_carrito": "(4,3)",
     "Patente": "123"
 }
 {
 	"Cliente": "cliente2",
-	"Cantidad_de_sopaipillas": "12",
-    "Stock_restante": "2",
+	"Cantidad_de_sopaipillas": 12,
+    "Stock_restante": 42,
     "Ubicacion_carrito": "(5,22)",
     "Patente": "321"
 }

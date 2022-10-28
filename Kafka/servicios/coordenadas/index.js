@@ -16,7 +16,7 @@ var coordenadas = ''
 var patente = 0
 var patente;
 var carrosactivos = new Map();
-
+var profugos = [];
 const auth = async () => {
     const consumer = kafka.consumer({ groupId: 'prueba2', fromBeginning: true });
     await consumer.connect();
@@ -38,10 +38,6 @@ const auth = async () => {
                         i++;
                     }
                     if(i == 3){
-                        // console.log("Posicion del carrito: ")
-                        // console.log("Patente: ",patente)
-                        // console.log("Coordenadas: ",coordenadas)
-                        // console.log("hora: ", hora)
 
                         var coorhora = {
                             "coordenadas": coordenadas,
@@ -50,7 +46,7 @@ const auth = async () => {
 
                         carrosactivos.set(patente,coorhora)
                         carrosactivos.forEach((valor, llave)=>{
-                            console.log('Patente: ', llave, valor)
+                            console.log('Patente: ', llave, 'Hora: ', new Date(valor.hora).toLocaleTimeString("es-CL"),' coordenadas: ', valor.coordenadas)
                             if(new Date().getTime() - valor.hora >= 60000){
                                 carrosactivos.delete(llave)
                                 console.log(patente, llave, ' supero el minuto')
@@ -63,7 +59,8 @@ const auth = async () => {
                 else if(partition == 1){
                     console.log("Posicion carrito profugo: ")
                     coordenadas = JSON.parse(message.value.toString())
-                    console.log("Coordenadas: ", coordenadas.Coordenadas)
+                    profugos.push(coordenadas)
+                    console.log("Lista carritos profugos: ", profugos)
                 }
             }
         },
