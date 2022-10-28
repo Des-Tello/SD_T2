@@ -14,6 +14,9 @@ const kafka = new Kafka({
 var i = 0
 var coordenadas = ''
 var patente = 0
+var patente;
+var carrosactivos = new Map();
+
 const auth = async () => {
     const consumer = kafka.consumer({ groupId: 'prueba2', fromBeginning: true });
     await consumer.connect();
@@ -30,10 +33,30 @@ const auth = async () => {
                         patente = JSON.parse(message.value.toString())
                         i++;
                     }
-                    if(i == 2){
-                        console.log("Posicion del carrito: ")
-                        console.log("Patente: ",patente)
-                        console.log("Coordenadas: ",coordenadas)
+                    if(message.key.toString() == "hora"){
+                        hora = JSON.parse(message.value.toString())
+                        i++;
+                    }
+                    if(i == 3){
+                        // console.log("Posicion del carrito: ")
+                        // console.log("Patente: ",patente)
+                        // console.log("Coordenadas: ",coordenadas)
+                        // console.log("hora: ", hora)
+
+                        var coorhora = {
+                            "coordenadas": coordenadas,
+                            "hora": hora
+                        }
+
+                        carrosactivos.set(patente,coorhora)
+                        carrosactivos.forEach((valor, llave)=>{
+                            console.log('Patente: ', llave, valor)
+                            if(new Date().getTime() - valor.hora >= 60000){
+                                carrosactivos.delete(llave)
+                                console.log(patente, llave, ' supero el minuto')
+                            }
+                        })
+                        
                         i = 0;
                     }
                 }
@@ -47,7 +70,7 @@ const auth = async () => {
       })
 }
 
-app.get("/blocked", async (req, res) => {
+app.get("/patentes", async (req, res) => {
     res.status(200).json({"users-blocked": black_list});
 });
 

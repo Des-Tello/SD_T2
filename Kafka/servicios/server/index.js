@@ -28,13 +28,6 @@ app.post("/server", async (req, res) => {
         // Recibo un json con los datos de un posible miembro y lo envio al topico nuevos_miembros
         
         const topicMessages = [
-            // {
-            //     // Stock debe estar leyendo constantes consultas
-            //     topic: 'stock',
-            //     messages: [
-            //         {key: 'key1', value: JSON.stringify(mensaje)}
-            //     ]
-            // },
             {
                 topic: 'nuevos_miembros',
                 messages: [
@@ -54,6 +47,7 @@ app.post("/server", async (req, res) => {
         )
     }
     else if(accion == "registro venta"){
+        mensaje.Hora = new Date().getTime();
         const topicMessages = [
             {
                 // Registro la venta
@@ -67,8 +61,9 @@ app.post("/server", async (req, res) => {
             },
             {
                 topic: 'coordenadas',
-                messages: [{key: 'coordenadas', value: JSON.stringify(mensaje.Ubicacion_carrito)},
-                           {key: 'patente', value: JSON.stringify(mensaje.Patente)}
+                messages: [{key: 'coordenadas', value: JSON.stringify(mensaje.Ubicacion_carrito), partition: 0},
+                           {key: 'patente', value: JSON.stringify(mensaje.Patente), partition: 0},
+                           {key: 'hora', value: JSON.stringify(mensaje.Hora), partition: 0}
                 ]
             }
         ]

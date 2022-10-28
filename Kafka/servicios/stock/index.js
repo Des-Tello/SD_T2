@@ -28,17 +28,15 @@ const auth = async () => {
                 
                 if(parseInt(data.Stock_restante) <= 20){
                     cola_consultas.push(data)
-                    i++;
                 }
 
-                if(i == 5){
+                if(cola_consultas.length == 5){
                         console.log("PRECAUCION")
-                        console.log("Entre las ultimas ventas, hay 5 que tienen un stock preocupante")
+                        console.log("Entre las ultimas ventas, hay 5 que tienen un stock preocupante (< 20)")
                         cola_consultas.forEach(function(consulta) {
                             console.log("Consulta: ",consulta)
                         });
                         cola_consultas = [];
-                        i = 0;
                     }
                     
                 

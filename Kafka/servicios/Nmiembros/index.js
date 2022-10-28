@@ -45,16 +45,15 @@ const auth = async () => {
     //   res.status(200).json({Lista_postulantes_premium: cola_miembrosP},{Lista_postulantes_no_premium: cola_miembrosNP});
 }
 
-let pre = true
+app.get("/lista", async (req, res) => {
+    res.status(200).json({"postulantes_premium": cola_miembrosP,
+                        "postulantes_no_premium": cola_miembrosNP});
+                    });
+
 app.post("/miembros", async (req, res) => {
-    let p = cola_miembrosP.length 
-    //   res.status(200).json({Lista_postulantes_premium: cola_miembrosP},{Lista_postulantes_no_premium: cola_miembrosNP});
 
     validacion = req.body
     for(let i in validacion){
-        console.log(validacion[i])
-        console.log("Posible miembro:",validacion[i].patente)
-        console.log("¿aceptado? ",validacion[i].aceptado)
 
         if(validacion[i].aceptado == 1){
                 miembrop = cola_miembrosP.find((post)=>{
@@ -76,8 +75,8 @@ app.post("/miembros", async (req, res) => {
         }   
     };
 
-    console.log("Miembros aceptados no premium:", __FOUNDP);
-    console.log("Miembros aceptados no premium:", __FOUNDNP);
+    console.log("Miembros premium aceptados:", __FOUNDP);
+    console.log("Miembros no premium aceptados:", __FOUNDNP);
     __FOUNDP = [];
     __FOUNDNP = [];
     res.status(200).json({lista: "Hecho"});

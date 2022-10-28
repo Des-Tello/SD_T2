@@ -1,22 +1,38 @@
-json
-Nuevo miembro
+Ventas
 {
-    "Nombre": "Benjamin",
-    "Apellido": "Tello",
-    "Rut": "12345678-1",
-    "Correo": "benjamin.tello@mail.udp.cl",
-    "Patente": "321",
-    "Premium": 1
-}
-
-Venta
-{
-	"Cliente": "nicolas hidalgo",
-	"Cantidad_de_sopaipillas": "12",
-    "Hora": "13:02",
-    "Stock_restante": "2",
+	"Cliente": "cliente1",
+	"Cantidad_de_sopaipillas": "21",
+    "Stock_restante": "22",
     "Ubicacion_carrito": "(4,3)",
     "Patente": "123"
+}
+{
+	"Cliente": "cliente1",
+	"Cantidad_de_sopaipillas": "6",
+    "Stock_restante": "12",
+    "Ubicacion_carrito": "(4,3)",
+    "Patente": "123"
+}
+{
+	"Cliente": "cliente1",
+	"Cantidad_de_sopaipillas": "2",
+    "Stock_restante": "10",
+    "Ubicacion_carrito": "(4,3)",
+    "Patente": "123"
+}
+{
+	"Cliente": "cliente1",
+	"Cantidad_de_sopaipillas": "1",
+    "Stock_restante": "9",
+    "Ubicacion_carrito": "(4,3)",
+    "Patente": "123"
+}
+{
+	"Cliente": "cliente2",
+	"Cantidad_de_sopaipillas": "12",
+    "Stock_restante": "2",
+    "Ubicacion_carrito": "(5,22)",
+    "Patente": "321"
 }
 
 profugo
@@ -45,3 +61,45 @@ validacion
 	"patente": 3,
 	"aceptado": "1"
 }]
+
+Registros
+{
+    "Nombre": "usuario1",
+    "Apellido": "apellido1",
+    "Rut": "12345678-1",
+    "Correo": "usuario1@mail.udp.cl",
+    "Patente": "321",
+    "Premium": 1
+}
+{
+    "Nombre": "usuario2",
+    "Apellido": "apellido2",
+    "Rut": "12345678-1",
+    "Correo": "usuario2@mail.udp.cl",
+    "Patente": "123",
+    "Premium": 1
+}
+{
+    "Nombre": "usuario3",
+    "Apellido": "apellido3",
+    "Rut": "12345678-1",
+    "Correo": "usuario3@mail.udp.cl",
+    "Patente": "2",
+    "Premium": 0
+}
+{
+    "Nombre": "usuario4",
+    "Apellido": "apellido4",
+    "Rut": "12345678-1",
+    "Correo": "usuario4@mail.udp.cl",
+    "Patente": "1",
+    "Premium": 0
+}
+{
+    "Nombre": "usuario5",
+    "Apellido": "apellido5",
+    "Rut": "12345678-1",
+    "Correo": "usuario5@mail.udp.cl",
+    "Patente": "3",
+    "Premium": 1
+}

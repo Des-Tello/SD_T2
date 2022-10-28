@@ -27,7 +27,7 @@ const auth = async () => {
             // Funciona de manera asincrionica guardando datos en la base de datos
             if (message.value){
                 var data = JSON.parse(message.value.toString());
-                console.log("Mensaje recibido en el topico ventas: ",data)
+                // console.log("Mensaje recibido en el topico ventas: ",data)
                 // Variables para agregar a la base de datos
                 var cliente = data.Cliente
                 var cantSopaipillas = data.Cantidad_de_sopaipillas
@@ -58,7 +58,7 @@ const auth = async () => {
         },
       })
 }
-app.get("/prueba", async (req, res) => {
+app.get("/ventas-diarias", async (req, res) => {
     const ventaindividual = {};
     const ventacadacliente = {};
     
@@ -87,7 +87,7 @@ app.get("/prueba", async (req, res) => {
             }else{
                 ventacadacliente[sopaipillas[i].Patente] = {};
                 ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente] = {"compras": 1, "cantidad":sopaipillas[i].Sopaipillas};
-                ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]
+                // ventacadacliente[sopaipillas[i].Patente][sopaipillas[i].Cliente]
             }
     
         }
@@ -96,32 +96,41 @@ app.get("/prueba", async (req, res) => {
         console.log('Carrito:', i)
         for(let j in ventacadacliente[i]){
             console.log('Promedio cliente ',j ,' : ', ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras)
+            // CANT SOPAIPAS / NUM COMPRAS
             // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
         }
     }
     
-    console.log('ventas totales para cada carrito: ',ventaindividual)
-    console.log('ventas totales', totalventas)
-    console.log('vendedores totales', vendedor.length)
-    console.log('clientes totales', clientes.length)
+    console.log('Ventas totales para cada carrito: ',ventaindividual)
+
+    for(let i in ventacadacliente){
+        console.log('Carrito:', i)
+        for(let j in ventacadacliente[i]){
+            console.log('Promedio cliente ',j ,' : ', ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras)
+            // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
+        }
+    }
+    console.log('Ventas totales', totalventas)
+    console.log('Vendedores totales', vendedor.length)
+    console.log('Clientes totales', clientes.length)
     // console.log('venta cada cliente',ventacadacliente)
     res.status(200).json({"ok": 'ok'});
     
 });
 
-app.get("/ventas-diarias", async (req, res) => {
-    // Si ingreso a esta dirección debo realizar las consultas en la base de datos
-    // Ventas totales: Calculando el numero de ventas que tengo en la tabla Ventas
-    // Promedio: Calculo el numero de clientes distintos y divido las ventas totales
-    // Clientes totales: Guardo todos los valores distintos, comparandolos con el atributo Cliente
+// app.get("/ventas-diarias", async (req, res) => {
+//     // Si ingreso a esta dirección debo realizar las consultas en la base de datos
+//     // Ventas totales: Calculando el numero de ventas que tengo en la tabla Ventas
+//     // Promedio: Calculo el numero de clientes distintos y divido las ventas totales
+//     // Clientes totales: Guardo todos los valores distintos, comparandolos con el atributo Cliente
     
-    let ventas_diarias = {
-        "Ventas_totales": ventas_totales,
-        "Promedio": promedio,
-        "Clientes_totales": clientes_totales
-    }
-    res.status(200).json({"ventas_diarias": ventas_diarias});
-});
+//     let ventas_diarias = {
+//         "Ventas_totales": ventas_totales,
+//         "Promedio": promedio,
+//         "Clientes_totales": clientes_totales
+//     }
+//     res.status(200).json({"ventas_diarias": ventas_diarias});
+// });
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
