@@ -110,6 +110,12 @@ app.get("/ventas-diarias", async (req, res) => {
             // ventacadacliente[i][j].cantidad = ventacadacliente[i][j].cantidad/ventacadacliente[i][j].compras
         }
     }
+    let i = 0;
+    for(let i in ventacadacliente){
+        console.log('Carrito:', i)
+        console.log('Tiene ',ventacadacliente[i].length,' clientes')
+    }
+    
     console.log('Ventas totales', totalventas)
     console.log('Vendedores totales', vendedor.length)
     console.log('Clientes totales', clientes.length)
@@ -117,20 +123,6 @@ app.get("/ventas-diarias", async (req, res) => {
     res.status(200).json({"ok": 'ok'});
     
 });
-
-// app.get("/ventas-diarias", async (req, res) => {
-//     // Si ingreso a esta dirección debo realizar las consultas en la base de datos
-//     // Ventas totales: Calculando el numero de ventas que tengo en la tabla Ventas
-//     // Promedio: Calculo el numero de clientes distintos y divido las ventas totales
-//     // Clientes totales: Guardo todos los valores distintos, comparandolos con el atributo Cliente
-    
-//     let ventas_diarias = {
-//         "Ventas_totales": ventas_totales,
-//         "Promedio": promedio,
-//         "Clientes_totales": clientes_totales
-//     }
-//     res.status(200).json({"ventas_diarias": ventas_diarias});
-// });
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
