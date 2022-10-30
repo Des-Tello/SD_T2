@@ -47,6 +47,23 @@ Para poder aceptar a los miembros que se hayan postulado enviaremos el siguiente
 }]
 ```
 A la misma ruta del servidor, sin agregar ninguna query
+
+#### Registro venta
+Para poder registrar una venta, debemos realizar peticiones a la siguiente url:
+```sh
+http://localhost:3000/server?accion=registro%20venta
+```
+Con un json de la siguiente forma:
+```json
+{
+	"Cliente": "cliente66",
+	"Cantidad_de_sopaipillas": 32,
+    "Stock_restante": 42,
+    "Ubicacion_carrito": "(1,3)",
+    "Patente": "123"
+}
+```
+
 ## Video
 El siguiente video recorre las carpetas utilizadas para simular el motor de busqueda que solicita la tarea, breve explicación del docker-compose y los contenedores que este levanta. 
 Finalmente se hace una prueba a uno de los servicios de redis, especificamente el que tiene la politica de LRU configurada.
