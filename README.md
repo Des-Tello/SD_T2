@@ -23,7 +23,30 @@ http://localhost:3000/server?accion=registro%20miembro
     "Premium": 1
 }
 ```
-
+Para poder aceptar a los miembros que se hayan postulado enviaremos el siguiente json
+```json
+[{
+	"patente": 321,
+	"aceptado": "0"
+},
+{
+	"patente": 123,
+	"aceptado": "0"
+},
+{
+	"patente": 2,
+	"aceptado": "0"
+},
+{
+	"patente": 1,
+	"aceptado": "1"
+},
+{
+	"patente": 3,
+	"aceptado": "1"
+}]
+```
+A la misma ruta del servidor, sin agregar ninguna query
 ## Video
 El siguiente video recorre las carpetas utilizadas para simular el motor de busqueda que solicita la tarea, breve explicación del docker-compose y los contenedores que este levanta. 
 Finalmente se hace una prueba a uno de los servicios de redis, especificamente el que tiene la politica de LRU configurada.
