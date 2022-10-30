@@ -8,9 +8,20 @@ docker-compose up --build
 
 ## Peticiones
 ### POST
+#### Registro miembro
 La peticion para poder enviar un postulante al servidor debe ser enviada de la siguiente manera
 ```sh
 http://localhost:3000/server?accion=registro%20miembro
+```
+```json
+{
+    "Nombre": "usuario5",
+    "Apellido": "apellido5",
+    "Rut": "12345678-1",
+    "Correo": "usuario5@mail.udp.cl",
+    "Patente": "3",
+    "Premium": 1
+}
 ```
 
 ## Video
