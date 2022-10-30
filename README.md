@@ -56,14 +56,35 @@ http://localhost:3000/server?accion=registro%20venta
 Con un json de la siguiente forma:
 ```json
 {
-	"Cliente": "cliente66",
-	"Cantidad_de_sopaipillas": 32,
+    "Cliente": "cliente66",
+    "Cantidad_de_sopaipillas": 32,
     "Stock_restante": 42,
     "Ubicacion_carrito": "(1,3)",
     "Patente": "123"
 }
 ```
-
+#### Denuncia profugo
+Para poder denunciar un carrito profugo, debemos dirigir las consultas a la siguiente url:
+```sh
+http://localhost:3000/server?accion=denuncia%20profugo
+```
+Con json simples de la forma:
+```json
+{
+    "Coordenadas":"(6,1)"
+}
+```
+### GET
+#### Lista de postulantes
+Para poder aceptar postulantes, debemos saber antes quienes se han postulados, para esto nos dirigiremos a la siguiente url:
+```sh
+http://localhost:5003/lista
+```
+#### Procesamiento ventas diarias
+Para poder saber en detalle los numeros que manejan los miembros del gremio de sopaipilleros, en termino de promedio de ventas, el total de venta y los clientes totales que maneja cada uno, debemos dirigirnos a la siguiente url:
+```sh
+http://localhost:5000/ventas-diarias
+```
 ## Video
 El siguiente video recorre las carpetas utilizadas para simular el motor de busqueda que solicita la tarea, breve explicación del docker-compose y los contenedores que este levanta. 
 Finalmente se hace una prueba a uno de los servicios de redis, especificamente el que tiene la politica de LRU configurada.
